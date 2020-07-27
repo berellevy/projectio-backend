@@ -33,35 +33,36 @@ def pexel_image_getter(search_term, key)
     resp.photos.map { |img| img.src["large"] }.sample
 end
 
-# puts pexel_image_getter("lamp", pexel_key)
+CartItem.destroy_all
+puts "cartItems destroyed"
+Cart.destroy_all
+puts "carts destroyed"
+User.destroy_all
+puts 'users destroyed'
 
+10.times do |i|
+    User.create(
+        name: Faker::Name.name,
+        username: "user#{i}",
+        password: "1234"
+    )
+end
+puts "10 users created"
 
-# User.destroy_all
-# puts 'users destroyed'
-
-# 10.times do |i|
-#     User.create(
-#         name: Faker::Name.name,
-#         username: "user#{i}",
-#         password: "1234"
-#     )
-# end
-# puts "10 users created"
-
-# 100.times do |i|
-#     name = Faker::Commerce.product_name
-#     Item.create(
-#         name: name,
-#         price: Faker::Commerce.price(range: 5..550),
-#         description: Faker::Hipster.paragraph,
-#         image1: pixabay_image_getter(name.split.sample, pixabay_key),
-#         image2: pixabay_image_getter(name.split.sample, pixabay_key)
-#     )
-#     print "."
-# end
-# puts
-# puts "100 items created"
-# puts Item.all.map {|item| [item.image1, item.image2]}
+100.times do |i|
+    name = Faker::Commerce.product_name
+    Item.create(
+        name: name,
+        price: Faker::Commerce.price(range: 5..550),
+        description: Faker::Hipster.paragraph,
+        image1: pixabay_image_getter(name.split.sample, pixabay_key),
+        image2: pixabay_image_getter(name.split.sample, pixabay_key)
+    )
+    print "."
+end
+puts
+puts "100 items created"
+puts Item.all.map {|item| [item.image1, item.image2]}
 
 
 
