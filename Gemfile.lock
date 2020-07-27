@@ -238,7 +238,7 @@ DEPENDENCIES
   image_suckr
   listen (~> 3.2)
   pexels
-  pg (>= 0.18, < 2.0)
+  pg (~> 1.2, >= 1.2.3)
   puma (~> 4.1)
   rack-cors
   rails (~> 6.0.3, >= 6.0.3.2)

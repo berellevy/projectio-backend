@@ -12,7 +12,6 @@ pixabay_key =  ENV['pixabay_key']
 pexel_key = ENV['pexel_key']
 
 
-
 def pixabay_image_getter(search_terms, key)
     base_url = "https://pixabay.com/api/?key="
     key = key
@@ -25,7 +24,7 @@ def pixabay_image_getter(search_terms, key)
     workable_hash["hits"].map { |img| img["webformatURL"]}.sample
 end
 
-# puts pixabay_image_getter("fan", pixabay_key)
+puts pixabay_image_getter("fan", pixabay_key)
 
 def pexel_image_getter(search_term, key)
     client = Pexels::Client.new(key)
@@ -55,8 +54,8 @@ puts "10 users created"
         name: name,
         price: Faker::Commerce.price(range: 5..550),
         description: Faker::Hipster.paragraph,
-        image1: pixabay_image_getter(name.split.sample, pixabay_key),
-        image2: pixabay_image_getter(name.split.sample, pixabay_key)
+        image1: pixabay_image_getter(name.split.last, pixabay_key),
+        image2: pixabay_image_getter(name.split.last, pixabay_key)
     )
     print "."
 end
