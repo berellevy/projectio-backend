@@ -24,8 +24,6 @@ def pixabay_image_getter(search_terms, key)
     workable_hash["hits"].map { |img| img["webformatURL"]}.sample
 end
 
-puts pixabay_image_getter("fan", pixabay_key)
-
 def pexel_image_getter(search_term, key)
     client = Pexels::Client.new(key)
     resp = client.photos.search(search_term)    
@@ -34,6 +32,8 @@ end
 
 CartItem.destroy_all
 puts "cartItems destroyed"
+Item.destroy_all
+puts "items destroyed"
 Cart.destroy_all
 puts "carts destroyed"
 User.destroy_all
@@ -61,7 +61,6 @@ puts "10 users created"
 end
 puts
 puts "100 items created"
-puts Item.all.map {|item| [item.image1, item.image2]}
 
 
 
