@@ -5,3 +5,65 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'rest-client'
+
+pixabay_key =  ENV['pixabay_key']
+pexel_key = ENV['pexel_key']
+
+
+
+def pixabay_image_getter(search_terms, key)
+    base_url = "https://pixabay.com/api/?key="
+    key = key
+    query = "&q=" + search_terms 
+    params = "&image_type=photo&pretty=true"
+    full_url = base_url + key + query + params
+    restClientResponseObject = RestClient.get(full_url)
+    jsonButItsAString = restClientResponseObject.body
+    workable_hash = JSON.parse(jsonButItsAString)
+    workable_hash["hits"].map { |img| img["webformatURL"]}.sample
+end
+
+# puts pixabay_image_getter("fan", pixabay_key)
+
+def pexel_image_getter(search_term, key)
+    client = Pexels::Client.new(key)
+    resp = client.photos.search(search_term)    
+    resp.photos.map { |img| img.src["large"] }.sample
+end
+
+# puts pexel_image_getter("lamp", pexel_key)
+
+
+# User.destroy_all
+# puts 'users destroyed'
+
+# 10.times do |i|
+#     User.create(
+#         name: Faker::Name.name,
+#         username: "user#{i}",
+#         password: "1234"
+#     )
+# end
+# puts "10 users created"
+
+# 100.times do |i|
+#     name = Faker::Commerce.product_name
+#     Item.create(
+#         name: name,
+#         price: Faker::Commerce.price(range: 5..550),
+#         description: Faker::Hipster.paragraph,
+#         image1: pixabay_image_getter(name.split.sample, pixabay_key),
+#         image2: pixabay_image_getter(name.split.sample, pixabay_key)
+#     )
+#     print "."
+# end
+# puts
+# puts "100 items created"
+# puts Item.all.map {|item| [item.image1, item.image2]}
+
+
+
+
+
