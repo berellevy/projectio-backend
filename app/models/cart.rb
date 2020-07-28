@@ -19,10 +19,8 @@ class Cart < ApplicationRecord
     cart_item = cart_items.find_by(item_id: item.id)
   end
 
-  
-
-  
-  
-
+  def display_cart
+    cart_items.map {|cart_item| cart_item.display_line}
+  end
 
 end

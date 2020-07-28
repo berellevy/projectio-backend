@@ -3,7 +3,7 @@ class CartsController < ApplicationController
 
     def show
         cart = Cart.find(params[:id])
-        render json: cart.to_json( include: :items)
+        render json: cart.display_cart
     end
     
     def add_item
