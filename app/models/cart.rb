@@ -3,7 +3,8 @@ class Cart < ApplicationRecord
   has_many :cart_items
   has_many :items, through: :cart_items
 
-  def add_item(item, quantity = 1)
+  def add_item(item_id, quantity = 1)
+    item = Item.find(item_id)
     cart_item = get_cart_item_by_item(item)
     if cart_item
       cart_item.quantity += quantity
