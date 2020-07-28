@@ -16,7 +16,7 @@ def pixabay_image_getter(search_terms, key)
     base_url = "https://pixabay.com/api/?key="
     key = key
     query = "&q=" + search_terms 
-    params = "&image_type=photo&pretty=true"
+    params = "&image_type=photo&safesearch=true"
     full_url = base_url + key + query + params
     restClientResponseObject = RestClient.get(full_url)
     jsonButItsAString = restClientResponseObject.body
@@ -38,6 +38,8 @@ Cart.destroy_all
 puts "carts destroyed"
 User.destroy_all
 puts 'users destroyed'
+Item.destroy_all
+puts 'items destroyed'
 
 10.times do |i|
     User.create(
