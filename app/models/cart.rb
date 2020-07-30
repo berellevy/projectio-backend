@@ -24,7 +24,7 @@ class Cart < ApplicationRecord
   end
 
   def total
-    cart_items.sum { |ci| ci.line_total_price }
+    total = cart_items.sum { |ci| ci.line_total_price }
   end
 
   def tax
@@ -34,12 +34,20 @@ class Cart < ApplicationRecord
   def total_with_tax
     total + tax
   end
+
+  def total_items
+    cart_items.sum { |ci| ci.quantity }
+  end
   
+  
+  def cart_totals
+    {total: total, tax: tax, total_with_tax: total_with_tax }
+  end
   
 
   def display_cart
     items = cart_items.map {|cart_item| cart_item.display_line}
-    totals = {total: total, tax: tax, total_with_tax: total_with_tax }
+    totals = cart_totals
     {items: items, totals: totals}
   end
 

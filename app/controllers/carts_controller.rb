@@ -9,14 +9,23 @@ class CartsController < ApplicationController
     def add_item
         cart = Cart.find(params[:id])
         cart.add_item(cart_params[:item_id])
-        render json: cart.to_json( include: :items)
+        render json: cart.total_items
     end
+
+    def cart_item_qty
+        cart = Cart.find(params[:id])
+        render json: cart.total_items
+    end
+    
 
     def delete_item
         cart = Cart.find(params[:id])
-        cart.delete_item(cart_params[:item_id])
-        render json: {status: "deleted"}
+        deleted_item = cart.delete_item(cart_params[:item_id])
+
+        render json: {deleted_item: deleted_item.item.id, cart_totals: cart.cart_totals}
     end
+
+
 
 
     private
