@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
 
 	def search
 		items = Item.search(params[:query])
-		render json: {triggered: "items#search", query: params[:query], results: items}
+		render json: items
 	end
 	
 
