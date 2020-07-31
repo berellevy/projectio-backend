@@ -25,6 +25,13 @@ class CartsController < ApplicationController
         render json: {deleted_item: deleted_item.item.id, cart_totals: cart.cart_totals}
     end
 
+    def make_purchase
+        cart = Cart.find(params[:id])
+        purchase = cart.make_purchase
+        render json: purchase
+    end
+    
+
 
 
 

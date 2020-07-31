@@ -36,18 +36,18 @@ Item.destroy_all
 puts "items destroyed"
 Cart.destroy_all
 puts "carts destroyed"
+Purchase.destroy_all
+puts "purchases destroyed"
 User.destroy_all
 puts 'users destroyed'
 Item.destroy_all
 puts 'items destroyed'
 
-10.times do |i|
-    User.create(
-        name: Faker::Name.name,
-        username: "user#{i}",
-        password: "1234"
-    )
-end
+User.create(
+    name: Faker::Name.name,
+    username: "user",
+    password: "1234"
+)
 puts "10 users created"
 
 100.times do |i|

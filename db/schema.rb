@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_195121) do
+ActiveRecord::Schema.define(version: 2020_07_31_124758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cart_items", force: :cascade do |t|
-    t.bigint "cart_id", null: false
     t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "quantity", default: 1
-    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.string "itemable_type"
+    t.bigint "itemable_id"
     t.index ["item_id"], name: "index_cart_items_on_item_id"
+    t.index ["itemable_type", "itemable_id"], name: "index_cart_items_on_itemable_type_and_itemable_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -42,6 +43,13 @@ ActiveRecord::Schema.define(version: 2020_07_27_195121) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_purchases_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password"
@@ -50,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_195121) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "items"
   add_foreign_key "carts", "users"
+  add_foreign_key "purchases", "users"
 end

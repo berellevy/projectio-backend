@@ -1,7 +1,10 @@
 class CartItem < ApplicationRecord
-  belongs_to :cart
+  belongs_to :itemable, polymorphic: true
   belongs_to :item
-  validates :cart, uniqueness: { scope: :item }
+  validates :itemable_type, :itemable_id, presence: true
+  validates :item, uniqueness: { scope: [:itemable_type, :itemable_id] }
+  
+  
   
   def line_total_price
   	item.price * quantity

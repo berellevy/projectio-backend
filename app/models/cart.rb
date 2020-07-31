@@ -1,10 +1,10 @@
 class Cart < ApplicationRecord
   belongs_to :user
-  has_many :cart_items
-  has_many :items, through: :cart_items
+  has_many :cart_items, as: :itemable
+
 
   def add_item(id, quantity = 1)
-    cart_item = get_cart_item_by_item_id(id)
+    cart_item = self.get_cart_item_by_item_id(id)
     if cart_item
       cart_item.quantity += quantity
       cart_item.save
@@ -20,7 +20,7 @@ class Cart < ApplicationRecord
 
 
   def get_cart_item_by_item_id(id)
-    cart_item = cart_items.find_by(item_id: id)
+    self.cart_items.find_by(item_id: id)
   end
 
   def total
@@ -43,6 +43,16 @@ class Cart < ApplicationRecord
   def cart_totals
     {total: total, tax: tax, total_with_tax: total_with_tax }
   end
+
+  def make_purchase
+    if cart_items.length > 0 
+      p = Purchase.create(user: self.user)
+      p.cart_items = self.cart_items
+      return p.display_purchase
+    else
+      return {error: "No items to purchase"}
+    end
+  end 
   
 
   def display_cart
