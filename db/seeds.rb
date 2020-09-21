@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require 'rest-client'
+require 'pry'
 
 pixabay_key =  ENV['pixabay_key']
 pexel_key = ENV['pexel_key']
@@ -24,6 +25,7 @@ def pixabay_image_getter(search_terms, key)
     workable_hash["hits"].map { |img| img["webformatURL"]}.sample
 end
 
+
 def pexel_image_getter(search_term, key)
     client = Pexels::Client.new(key)
     resp = client.photos.search(search_term)    
@@ -34,21 +36,17 @@ CartItem.destroy_all
 puts "cartItems destroyed"
 Item.destroy_all
 puts "items destroyed"
-Cart.destroy_all
-puts "carts destroyed"
 Purchase.destroy_all
 puts "purchases destroyed"
-User.destroy_all
-puts 'users destroyed'
 Item.destroy_all
 puts 'items destroyed'
 
-User.create(
-    name: Faker::Name.name,
-    username: "user",
-    password: "1234"
-)
-puts "10 users created"
+# User.create(
+#     name: Faker::Name.name,
+#     username: "user",
+#     password: "1234"
+# )
+# puts "10 users created"
 
 100.times do |i|
     name = Faker::Commerce.product_name
@@ -56,8 +54,7 @@ puts "10 users created"
         name: name,
         price: Faker::Commerce.price(range: 5..550),
         description: Faker::Hipster.paragraph,
-        image1: pixabay_image_getter(name.split.last, pixabay_key),
-        image2: pixabay_image_getter(name.split.last, pixabay_key)
+        image1: pixabay_image_getter(name.split.last, pixabay_key)
     )
     print "."
 end

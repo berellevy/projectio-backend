@@ -1,24 +1,9 @@
-# README
+# eCommerce Clone Back End
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Flatiron Mod 3 Project with [Andy Agus](https://github.com/Andyagus)
 
-Things you may want to cover:
+Front end is [here](https://github.com/berellevy/projectio-frontend)
 
-* Ruby version
+Watch a demo [here](https://www.youtube.com/watch?v=kDDZ7Tb6lQM)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Check out the [front end repo](https://github.com/berellevy/projectio-frontend) for the full project description.
